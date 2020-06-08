@@ -18,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::resource('users', 'UserController');
+Route::post('login', 'APIController@login');
+
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('logout', 'APIController@logout');
+    Route::resource('users', 'UserController');
+});
